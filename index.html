@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UC Panel</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        .ana-kutu { border: 2px solid #ffcc00; border-radius: 15px; padding: 20px; max-width: 350px; margin: auto; background: #111; }
+        .btn { background: #ffcc00; color: #000; padding: 15px; border: none; border-radius: 5px; font-weight: bold; width: 100%; cursor: pointer; font-size: 16px; margin-top: 10px; display: block; text-decoration: none; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+        #timer { font-size: 70px; color: #ff0000; font-weight: bold; margin: 20px 0; }
+        .gizle { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="ana-kutu">
+    <div id="adim1">
+        <h2 style="color:#ffcc00">UC GÖNDERİM MERKEZİ</h2>
+        <p>Devam etmek için hesabınızı doğrulayın.</p>
+        <button class="btn" onclick="baslat()">ŞİMDİ DOĞRULA</button>
+    </div>
+
+    <div id="adim2" class="gizle">
+        <p>Lütfen Doğrulanana Kadar Bekleyin...</p>
+        <div id="timer">15</div>
+    </div>
+
+    <div id="adim3" class="gizle">
+        <h2 style="color:#00ff00">DOĞRULANDI</h2>
+        <input type="number" id="idInput" placeholder="Oyuncu ID Girin">
+        <select id="ucSelect">
+            <option value="60">60 UC</option>
+            <option value="325">325 UC</option>
+            <option value="660">660 UC</option>
+            <option value="1200">1200 UC</option>
+        </select>
+        <button class="btn" onclick="gonder()">UC GÖNDER</button>
+    </div>
+
+    <div id="adim4" class="gizle">
+        <h3 style="color:#ffcc00">İŞLEM SIRAYA ALINDI</h3>
+        <p>ID: <span id="sonID"></span></p>
+        <p><b>En geç 3 saat içinde Hesaba yatacak.</b></p>
+        <a href="https://otieu.com/4/10482752" class="btn">SİSTEMİ TAMAMLA</a>
+    </div>
+</div>
+
+<script>
+    function baslat() {
+        document.getElementById('adim1').classList.add('gizle');
+        document.getElementById('adim2').classList.remove('gizle');
+        let sure = 15;
+        let say = setInterval(function() {
+            sure--;
+            document.getElementById('timer').innerText = sure;
+            if (sure <= 0) {
+                clearInterval(say);
+                document.getElementById('adim2').classList.add('gizle');
+                document.getElementById('adim3').classList.remove('gizle');
+            }
+        }, 1000);
+    }
+
+    function gonder() {
+        let id = document.getElementById('idInput').value;
+        if (id.length < 5) { alert("Geçerli bir ID girin!"); return; }
+        document.getElementById('sonID').innerText = id;
+        document.getElementById('adim3').classList.add('gizle');
+        document.getElementById('adim4').classList.remove('gizle');
+    }
+</script>
+
+</body>
+</html>
